@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gtEjrD/SeQxq13t9g8oMS3mZv0MGV61/ZSfKkGvE9y1RvFaM0LTgvy5qEbYvPMK3" crossorigin="anonymous">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background: linear-gradient(to right, #4caf50, #2196F3); */
+            background: conic-gradient(#3498db, #9b59b6, #3498db);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="password"] {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        .myp{
+            text-align: center;
+        }
+        /* Google Login Button */
+        .google-btn {
+            display: block;
+            width: 100%;
+            background-color: #DB4437;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-btn svg {
+            margin-right: 10px; /* Space between icon and text */
+        }
+
+        .google-btn:hover {
+            background-color: #C13505;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .or-divider hr {
+            flex: 1;
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form id="signupForm" action="#">
+            <input type="email" id="email" name="email" placeholder="Email">
+            <div style="position: relative;">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <span class="password-toggle bi bi-eye" onclick="togglePasswordVisibility('password')"></span>
+            </div>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+            <input type="submit" value="Sign Up">
+        </form>
+        <p class="myp">Already have an account? <a href="./index.html">Login</a></p>
+        <div id="signupError" class="error"></div>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/bootstrap-icons.min.js"></script>
+
+    <script>
+        function togglePasswordVisibility(inputId) {
+            var passwordInput = document.getElementById(inputId);
+            var icon = passwordInput.nextElementSibling;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            }
+        }
+
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Email validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById("signupError").innerText = "Invalid email address.";
+                return;
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                document.getElementById("signupError").innerText = "Password must be at least 8 characters long.";
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById("signupError").innerText = "Passwords do not match.";
+                return;
+            }
+
+            // Add your signup logic here
+            alert("Signup successful!");
+        });
+    </script>
+</body>
+</html>
